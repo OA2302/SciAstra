@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div id="video-container">
+        <video autoplay muted loop>
+            <source src="rocketNew.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="nav">
+        <div class="logo">
+            <img src="sciastra.webp" alt="logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Research <br>Institutes</a></li>
+                <li><a href="#">Courses</a></li>
+                <li><a href="#">Selections</a></li>
+                <li><a href="#">Our Team</a></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+            <button>Login</button>
+        </nav>
+    </div>
+    <div class="body">
+        <h1>
+            <strong>SciAstra</strong><br>
+            For the love of science</h1>
+    </div>
+    <div id="chat-container">
+        <div id="chat-header" onmousedown="startDrag(event)">SciAstra Chat</div>
+        <div id="chat-box"></div>
+        <div class="input">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+
+</body>
+</html>
