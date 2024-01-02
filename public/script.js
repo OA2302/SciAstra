@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendButton = document.getElementById('send-button');
     const chatBox = document.getElementById('chat-box');
 
-    // Display predefined questions when the page loads
+    // predefined questions
     const predefinedQuestions = [
         "What services does SciAstra offer?",
         "Tell me about SciAstra's educational programs.",
@@ -10,14 +10,18 @@ document.addEventListener('DOMContentLoaded', () => {
         "Is SciAstra a sponsor of IISER TVM?",
         "Why should I join SciAstra?",
         "What courses does SciAstra offer for IISC, IISER, NISER, ISI, CMI, CEBS, IACS?",
-        // Add more questions as needed
+        "Who are the mentors at SciAstra?",
+        "Can I access SciAstra courses offline?",
+        "Tell me about SciAstra's community events.",
+        "How do i contact the SciAstra support team?",
+        "Is there a mobile app for SciAstra?",
     ];
 
     predefinedQuestions.forEach(question => {
-        chatBox.innerHTML += `<div class="bot-message"><strong>Questions:</strong> ${question}</div>`;
+        chatBox.innerHTML += `<div class="bot-message"><strong>SciAstra Bot:</strong> ${question}</div>`;
     });
 
-    // Add event listener for dynamically generated bot responses
+    // Bot reaponse
     chatBox.addEventListener('click', (event) => {
         if (event.target.classList.contains('bot-message')) {
             const clickedQuestion = event.target.textContent.trim().replace('>SciAstra Bot:', '');
@@ -38,48 +42,26 @@ async function sendMessage() {
     var userMessage = `<div class="user-message"><strong>User:</strong> ${userInput}</div>`;
     chatBox.innerHTML += userMessage;
 
-    // Make a request to the server to handle the user's message
-    try {
-        const response = await fetch('/api/chat', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ message: userInput }),
-        });
+    setTimeout(function () {
+        var botResponse = generateBotResponse(userInput);
+        chatBox.innerHTML += `<div class="bot-message"><strong>SciAstra Bot:</strong> ${botResponse}</div>`;
+    }, 500);
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        var botResponse = `<div class="bot-message"><strong>SciAstra Bot:</strong> ${data.botResponse}</div>`;
-        chatBox.innerHTML += botResponse;
-    } catch (error) {
-        console.error('Error:', error);
-    }
-
-    // Clear the input field
     document.getElementById("user-input").value = "";
 }
 
-// Function to send a user message as if the user clicked a predefined question
 function sendUserMessage(message) {
     var chatBox = document.getElementById("chat-box");
     var userMessage = `<div class="user-message"><strong>User:</strong> ${message}</div>`;
     chatBox.innerHTML += userMessage;
 
-    // Simulate a response from the chatbot
-    setTimeout(function() {
+    setTimeout(function () {
         var botResponse = generateBotResponse(message);
         chatBox.innerHTML += `<div class="bot-message"><strong>SciAstra Bot:</strong> ${botResponse}</div>`;
-        // You can add more complex logic for actual chatbot responses here
     }, 500);
 }
 
-// Function to generate bot responses based on user messages
 function generateBotResponse(userMessage) {
-    // Implement more sophisticated logic based on user messages
     if (userMessage.toLowerCase().includes('services') && userMessage.toLowerCase().includes('offer')) {
         return "SciAstra offers a range of services, including educational programs, workshops, and consulting services. You can explore our website for detailed information on each service.";
     } else if (userMessage.toLowerCase().includes('educational programs')) {
@@ -92,12 +74,22 @@ function generateBotResponse(userMessage) {
         return "Join the Community! SciAstra is the biggest community of science scholars in India for IISER Aptitude test (IAT), National Entrance Screening Test (NEST), ISI, CMI, and IACS. We provide valuable resources, live classes, course materials, tests, and a supportive community for your educational journey.";
     } else if (userMessage.toLowerCase().includes('courses does sciastra offer')) {
         return "SciAstra offers the best courses for IISc, IISER, NISER, ISI, CMI, CEBS, and IACS. Explore our courses to prepare for exams like IAT, NEST, KVPY, ISI, and more. Visit our [Courses](https://www.sciastra.com/) page for detailed information.";
+    } else if (userMessage.toLowerCase().includes('mentors at sciastra')) {
+        return "SciAstra has experienced mentors with diverse backgrounds in science and education. Our mentors are dedicated to helping you succeed in your academic journey. You can learn more about our mentors on the [Team](https://www.sciastra.com/team) page.";
+    } else if (userMessage.toLowerCase().includes('access sciastra courses offline')) {
+        return "Yes, you can access SciAstra courses offline. We provide downloadable materials and resources for offline learning. Ensure you download the necessary content before going offline.";
+    } else if (userMessage.toLowerCase().includes('community events')) {
+        return "SciAstra organizes various community events, including webinars, workshops, and meet-ups. Stay tuned to our [Events](https://www.sciastra.com/events) page for updates on upcoming events and opportunities to connect with the SciAstra community.";
+    } else if (userMessage.toLowerCase().includes('contact sciastra support team')) {
+        return "For assistance, you can contact the SciAstra support team via email at support@sciastra.com or through our [Contact](https://www.sciastra.com/contact) page. Our team is ready to help with any inquiries or concerns you may have.";
+    } else if (userMessage.toLowerCase().includes('mobile app for sciastra')) {
+        return "Currently, SciAstra does not have a dedicated mobile app. However, our website is designed to be mobile-friendly, allowing you to access resources and participate in community activities on your mobile device.";
     } else {
         return "Thanks for your message! If you have specific questions, feel free to ask, and I'll do my best to assist you.";
     }
 }
 
-// resizing
+// resize height for desktop
 let isResizing = false;
 
 function startDrag(e) {
